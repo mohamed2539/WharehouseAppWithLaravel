@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\StockImportController;
+use App\Http\Controllers\StockDispatchController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,4 +24,12 @@ Route::get('/live-add-quantity', [StockImportController::class, 'liveAddPage'])-
 Route::get('/get-stock-item/{id}', [StockImportController::class, 'getStockItem'])->name('stock.getItem');
 Route::post('/update-stock-quantity/{id}', [StockImportController::class, 'updateStockQuantity'])->name('stock.updateQuantity');
 // Live Add Quantity
+
+
+// dispatch
+Route::get('/order-dispatch', [StockDispatchController::class, 'form'])->name('dispatch.form');
+Route::post('/order-dispatch', [StockDispatchController::class, 'import'])->name('dispatch.import');
+Route::post('/export-dispatch', [StockDispatchController::class, 'export'])->name('dispatch.export');
+
+// dispatch
 
