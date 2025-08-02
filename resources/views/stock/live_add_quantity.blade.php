@@ -1,64 +1,83 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>إضافة كمية مباشرة</title>
+    <title>إضافة كمية مباشرة للصنف</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body class="bg-gray-100 p-6">
 
-<div class="max-w-6xl mx-auto bg-white p-6 rounded shadow">
-    <h2 class="text-2xl font-bold mb-4 text-gray-700">➕ إضافة كمية مباشرة للصنف</h2>
+<body class="bg-gray-100 font-sans">
+@include('layouts.navbar')
+<div class="max-w-6xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+    <h2 class="text-3xl font-bold mb-6 text-blue-700 flex items-center gap-2">
+        <i class="fas fa-plus-circle text-blue-600"></i> إضافة كمية مباشرة للصنف
+    </h2>
 
-    <table class="w-full mb-6 border">
-        <thead class="bg-gray-200 text-gray-700 text-sm">
-            <tr>
-                <th class="p-2">UPC</th>
-                <th class="p-2">Style</th>
-                <th class="p-2">Color</th>
-                <th class="p-2">Size</th>
-                <th class="p-2">Location</th>
-                <th class="p-2">Quantity</th>
-            </tr>
-        </thead>
-        <tbody id="stockTable">
-            @foreach($stockItems as $item)
-                <tr class="cursor-pointer hover:bg-gray-100" data-id="{{ $item->id }}">
-                    <td class="p-2">{{ $item->product->upc }}</td>
-                    <td class="p-2">{{ $item->product->style_name }}</td>
-                    <td class="p-2">{{ $item->product->color }}</td>
-                    <td class="p-2">{{ $item->product->size }}</td>
-                    <td class="p-2">{{ $item->location }}</td>
-                    <td class="p-2 quantity-cell" id="quantity-{{ $item->id }}">{{ $item->quantity }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <!-- مربع البحث -->
+    <div class="mb-6 relative">
+        <input type="text" id="searchInput" placeholder="ابحث عن الصنف بالـ UPC أو Style أو Color أو Size"
+               class="w-full px-4 py-2 border rounded shadow focus:ring-2 focus:ring-blue-400"
+               autocomplete="off">
+        <ul id="searchResults" class="absolute bg-white border w-full shadow-lg z-10 hidden max-h-60 overflow-y-auto rounded mt-1">
+            <!-- نتائج البحث ستظهر هنا -->
+        </ul>
+    </div>
 
-    {{ $stockItems->links('pagination::tailwind') }}
+    <!-- تفاصيل الصنف المختار -->
+    <div id="itemDetails" class="hidden border-t pt-6 mt-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center gap-2">
+            <i class="fas fa-search text-gray-600"></i> تفاصيل الصنف:
+        </h3>
+        <div id="detailsContent" class="mb-4 text-sm text-gray-700 leading-relaxed"></div>
 
-    <div id="itemDetails" class="hidden border-t pt-4 mt-6">
-        <h3 class="text-xl font-semibold text-gray-700 mb-2">🔍 تفاصيل الصنف:</h3>
-        <div id="detailsContent" class="mb-4 text-sm text-gray-700"></div>
-
-        <form id="addQuantityForm" class="flex items-center gap-4">
-            <input type="number" id="quantityInput" name="quantity" min="1" placeholder="أدخل الكمية"
-                   class="px-4 py-2 border rounded w-1/3" required>
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-                ➕ أضف الكمية
+        <!-- نموذج الإضافة -->
+        <form id="addQuantityForm" class="flex flex-col sm:flex-row items-center gap-4">
+            <input type="number" id="quantityInput" name="quantity" min="1"
+                   placeholder="أدخل الكمية الجديدة"
+                   class="px-4 py-2 border border-gray-300 rounded-md w-full sm:w-1/3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                   required>
+            <button type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg shadow transition duration-200">
+                <i class="fas fa-plus mr-2"></i> أضف الكمية
             </button>
         </form>
 
-        <div id="message" class="mt-3 text-green-600 font-bold hidden"></div>
+        <!-- رسالة النجاح -->
+        <div id="message" class="mt-4 text-green-600 font-bold hidden"></div>
     </div>
 </div>
 
+<!-- Script -->
 <script>
     let selectedId = null;
 
-    $('#stockTable tr').click(function () {
+    // البحث عند كتابة النص
+    $('#searchInput').on('keyup', function () {
+        let query = $(this).val();
+        if (query.length < 2) {
+            $('#searchResults').addClass('hidden').html('');
+            return;
+        }
+
+        // إرسال Ajax للبحث عن الأصناف
+        $.get('/stock-search/live', { query: query }, function (data) {
+            let html = '';
+            data.forEach(item => {
+                html += `<li class="px-4 py-2 hover:bg-blue-100 cursor-pointer border-b" data-id="${item.id}">
+                    ${item.product.upc} - ${item.product.style_name} - ${item.product.color} - ${item.product.size} (الموقع: ${item.location})
+                </li>`;
+            });
+
+            $('#searchResults').removeClass('hidden').html(html);
+        });
+    });
+
+    // عند الضغط على نتيجة البحث
+    $('#searchResults').on('click', 'li', function () {
         selectedId = $(this).data('id');
+        $('#searchResults').addClass('hidden');
 
         $.get('/get-stock-item/' + selectedId, function (data) {
             $('#detailsContent').html(`
@@ -67,13 +86,15 @@
                 <p><strong>Color:</strong> ${data.product.color}</p>
                 <p><strong>Size:</strong> ${data.product.size}</p>
                 <p><strong>Location:</strong> ${data.location}</p>
-                <p><strong>Current Quantity:</strong> <span id="currentQuantity">${data.quantity}</span></p>
+                <p><strong>الكمية الحالية:</strong> <span id="currentQuantity">${data.quantity}</span></p>
             `);
             $('#itemDetails').removeClass('hidden');
             $('#message').hide();
+            $('#searchInput').val('');
         });
     });
 
+    // إرسال الكمية المضافة
     $('#addQuantityForm').submit(function (e) {
         e.preventDefault();
 
@@ -84,9 +105,7 @@
             _token: '{{ csrf_token() }}'
         }, function (data) {
             $('#message').text(data.message).removeClass('hidden');
-
             $('#currentQuantity').text(data.new_quantity);
-            $('#quantity-' + selectedId).text(data.new_quantity);
             $('#quantityInput').val('');
         });
     });

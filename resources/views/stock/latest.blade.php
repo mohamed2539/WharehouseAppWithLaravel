@@ -5,8 +5,8 @@
     <title>أحدث الوارد</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-6 font-sans">
-
+<body class="bg-gray-100  font-sans">
+@include('layouts.navbar')
 <div class="max-w-7xl mx-auto bg-white p-6 rounded shadow">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-bold text-gray-700">📦 أحدث الأصناف الواردة</h2>

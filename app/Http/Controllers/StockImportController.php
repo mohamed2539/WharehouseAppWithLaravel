@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Product;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Imports\StockImport;
@@ -110,5 +110,49 @@ public function updateStockQuantity(Request $request, $id)
 }
 
 
+
+
+
+
+
+
+
+
+
+        public function manualForm()
+        {
+            return view('stock.manual-add');
+        }
+
+        public function storeManual(Request $request)
+        {
+            $validated = $request->validate([
+                'upc' => 'required|string',
+                'style_name' => 'required|string',
+                'color' => 'required|string',
+                'size' => 'required|string',
+                'location' => 'required|string',
+                'quantity' => 'required|integer|min:1',
+            ]);
+
+            // نبحث عن المنتج أو ننشئه
+            $product = Product::firstOrCreate([
+                'upc' => $validated['upc'],
+                'style_name' => $validated['style_name'],
+                'color' => $validated['color'],
+                'size' => $validated['size'],
+            ]);
+
+            // نضيف الكمية في الـ Location المحدد
+            $stock = StockItem::firstOrNew([
+                'product_id' => $product->id,
+                'location' => $validated['location'],
+            ]);
+
+            $stock->quantity += $validated['quantity'];
+            $stock->save();
+
+            return redirect()->back()->with('success', 'تم إضافة الصنف بنجاح ✅');
+        }
 
 }

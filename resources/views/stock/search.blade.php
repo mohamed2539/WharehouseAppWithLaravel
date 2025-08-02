@@ -6,8 +6,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body class="bg-gray-100 p-6">
-
+<body class="bg-gray-100">
+@include('layouts.navbar')
 <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
     <h2 class="text-2xl font-bold mb-4 text-gray-700">🔎 بحث مباشر في الأصناف</h2>
 

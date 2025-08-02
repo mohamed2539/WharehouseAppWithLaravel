@@ -33,3 +33,10 @@ Route::post('/export-dispatch', [StockDispatchController::class, 'export'])->nam
 
 // dispatch
 
+// routes/web.php
+Route::get('/manual-stock', [StockImportController::class, 'manualForm'])->name('stock.manualForm');
+Route::post('/manual-stock', [StockImportController::class, 'storeManual'])->name('stock.storeManual');
+
+
+Route::get('/manual-dispatch', [StockDispatchController::class, 'manualForm'])->name('dispatch.manualForm');
+Route::post('/manual-dispatch', [StockDispatchController::class, 'storeManual'])->name('dispatch.storeManual');
