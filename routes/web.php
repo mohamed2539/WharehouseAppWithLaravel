@@ -1,8 +1,10 @@
 <?php
 use App\Http\Controllers\StockImportController;
 use App\Http\Controllers\StockDispatchController;
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DispatchReportController;
+use App\Http\Controllers\ReportController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -40,3 +42,34 @@ Route::post('/manual-stock', [StockImportController::class, 'storeManual'])->nam
 
 Route::get('/manual-dispatch', [StockDispatchController::class, 'manualForm'])->name('dispatch.manualForm');
 Route::post('/manual-dispatch', [StockDispatchController::class, 'storeManual'])->name('dispatch.storeManual');
+
+
+
+
+Route::get('/api/products/autocomplete', [StockDispatchController::class, 'autocomplete'])->name('products.autocomplete');
+Route::get('/api/product-details', [StockDispatchController::class, 'productDetails'])->name('products.details');
+
+Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/export-missing-stock', [DashboardController::class, 'exportMissing'])->name('stock.exportMissing');
+
+
+
+Route::get('/stock/manage', [StockController::class, 'manage'])->name('stock.manage');
+Route::delete('/stock/delete/{id}', [StockController::class, 'delete'])->name('stock.delete');
+Route::post('/stock/clear', [StockController::class, 'clearAll'])->name('stock.clear');
+
+//port 2233
+
+Route::get('/dispatches', [\App\Http\Controllers\DispatchController::class, 'index'])->name('dispatch.index');
+
+
+
+// Route::get('/report', [\App\Http\Controllers\ReportController::class, 'index'])->name('report.index');
+// Route::get('/report/export', [\App\Http\Controllers\ReportController::class, 'export'])->name('report.export');
+
+// report routes/web.php
+Route::get('/report/dispatches', [ReportController::class, 'dispatchReport'])->name('report.dispatch');
+// Route::get('/report/imports', [ReportController::class, 'importReport'])->name('report.import');
+Route::get('/report/import', [ReportController::class, 'importReport'])->name('report.import');
+Route::get('/report/dispatches/export', [ReportController::class, 'exportDispatch'])->name('report.dispatch.export');
+Route::get('/report/imports/export', [ReportController::class, 'exportImport'])->name('report.import.export');

@@ -1,0 +1,44 @@
+    public function dispatchReport(Request $request)
+    {
+        $from = $request->input('from');
+        $to = $request->input('to');
+    
+        $dispatches = collect();
+    
+        if ($from && $to) {
+            $fromDate = Carbon::parse($from)->startOfDay();
+            $toDate = Carbon::parse($to)->endOfDay();
+    
+            $dispatches = DispatchTransaction::with('product')
+                ->whereBetween('created_at', [$fromDate, $toDate])
+                ->latest()
+                ->paginate(20);
+        }
+    
+        return view('report.dispatch', compact('dispatches', 'from', 'to'));
+    }
+
+
+
+
+    
+    // public function dispatchReport(Request $request)
+    // {
+    //     $from = $request->input('from');
+    //     $to = $request->input('to');
+
+    //     $dispatches = collect();
+
+    //     if ($from && $to) {
+    //         $fromDate = Carbon::parse($from)->startOfDay();
+    //         $toDate = Carbon::parse($to)->endOfDay();
+
+    //         $dispatches = DispatchTransaction::with('product')
+    //             ->whereBetween('created_at', [$fromDate, $toDate])
+    //             ->latest()
+    //             ->paginate(20);
+    //     }
+
+    //     return view('report.dispatch', compact('dispatches', 'from', 'to'));
+    // }
+

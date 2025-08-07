@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>نتائج الصرف</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body class="bg-gray-100 min-h-screen font-sans">
+@include('layouts.header')
 @include('layouts.navbar')
 <div class="max-w-6xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
     <!-- العنوان -->

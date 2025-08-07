@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Alexandria';
+
+}
+
+
+a{
+    text-decoration: none;
+}
+
+@font-face {
+    src: url("../fonts/Alexandria-Bold.ttf");
+    font-family: 'Alexandria';
+}
+
+.classMargin{
+    margin-right: -55%;
+}
+.Logo{
+    max-width: 100px;
+    max-height: 70px;
+    margin: 7px;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.HightClass{
+    height: 450px;
+}

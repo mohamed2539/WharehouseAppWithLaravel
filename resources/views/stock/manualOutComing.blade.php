@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>صرف يدوي</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 font-sans">
-
+@include('layouts.header')
 @include('layouts.navbar')
 
 <div class="max-w-xl mx-auto bg-white mt-10 p-8 rounded-xl shadow border">

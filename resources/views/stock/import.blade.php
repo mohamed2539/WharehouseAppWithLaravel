@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>وارد المخزن</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
+@include('layouts.header')
 @include('layouts.navbar')
 <div class="max-w-xl mx-auto mt-20 bg-white p-10 rounded-xl shadow-lg">
     <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">📦 استيراد وارد من Excel</h2>

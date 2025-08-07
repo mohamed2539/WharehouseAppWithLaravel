@@ -9,4 +9,9 @@ class DispatchTransaction extends Model
     protected $fillable = [
         'product_id', 'location', 'dispatched_quantity', 'store_name'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

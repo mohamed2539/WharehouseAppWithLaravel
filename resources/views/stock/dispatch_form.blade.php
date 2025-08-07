@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>رفع طلبية صرف</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
+@include('layouts.header')
 @include('layouts.navbar')
 <div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
     <h2 class="text-xl font-bold mb-4 text-gray-700">📤 رفع طلبية صرف من شيت Excel</h2>

@@ -32,14 +32,14 @@ class StockImportController extends Controller
 
 
     public function latest()
-{
-    // نعرض أحدث 100 صنف بالترتيب من الأجدد للأقدم مع بيانات المنتج
-    $stockItems = StockItem::with('product')
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(10); // Laravel pagination
+    {
+        // نعرض أحدث 100 صنف بالترتيب من الأجدد للأقدم مع بيانات المنتج
+        $stockItems = StockItem::with('product')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10); // Laravel pagination
 
-    return view('stock.latest', compact('stockItems'));
-}
+        return view('stock.latest', compact('stockItems'));
+    }
 
 
 

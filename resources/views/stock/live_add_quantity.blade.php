@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>إضافة كمية مباشرة للصنف</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-
-<body class="bg-gray-100 font-sans">
+@include('layouts.header')
 @include('layouts.navbar')
 <div class="max-w-6xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
     <h2 class="text-3xl font-bold mb-6 text-blue-700 flex items-center gap-2">
