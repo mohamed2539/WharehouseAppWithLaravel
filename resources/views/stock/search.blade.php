@@ -1,7 +1,7 @@
 @include('layouts.header')
 @include('layouts.navbar')
 <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
-    <h2 class="text-2xl font-bold mb-4 text-gray-700">🔎 بحث مباشر في الأصناف</h2>
+    <h2 class="text-2xl font-bold mb-4 text-gray-700"><i class="fa-solid fa-magnifying-glass"></i> بحث مباشر في الأصناف</h2>
 
     <input type="text" id="searchInput" placeholder="اكتب UPC أو Style أو لون أو مقاس..." class="w-full px-4 py-2 border rounded mb-4">
 

@@ -12,8 +12,7 @@
         <!-- القائمة المنسدلة -->
         <div class="relative">
             <!-- زر القائمة -->
-            <button id="menuButton" class="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition duration-200 shadow-md flex items-center gap-2 classMargin">
-                <i class="fas fa-bars"></i>
+            <button id="menuButton" class="bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition duration-200 shadow-md flex items-center gap-2 classMargin"> 
                 القائمة
                 <i class="fas fa-chevron-down"></i>
             </button>

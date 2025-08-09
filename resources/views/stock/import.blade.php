@@ -1,7 +1,7 @@
 @include('layouts.header')
 @include('layouts.navbar')
 <div class="max-w-xl mx-auto mt-20 bg-white p-10 rounded-xl shadow-lg">
-    <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">📦 استيراد وارد من Excel</h2>
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-700"><i class="fas fa-file-signature"></i> استيراد وارد من Excel</h2>
 
     @if(session('success'))
         <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
@@ -18,7 +18,7 @@
         </div>
 
         <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition">
-            ⬆️ استيراد
+        <i class="fas fa-check"></i> استيراد
         </button>
     </form>
 </div>
